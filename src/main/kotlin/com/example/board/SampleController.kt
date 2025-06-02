@@ -8,13 +8,13 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 class SampleController {
 
-    @GetMapping("/sample")
-    fun sample(): String {
-        return "sample"
-    }
+  @GetMapping("/sample")
+  fun sample(): String {
+    return "sample"
+  }
 
-    @PostMapping("/sample")
-    fun samplePost(@RequestParam name: String): String {
-        return "sample name: $name"
-    }
+  @PostMapping("/sample")
+  fun samplePost(@RequestParam name: String): String {
+    return "sample name: $name"
+  }
 }
