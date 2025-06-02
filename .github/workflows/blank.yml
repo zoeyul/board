@@ -1,12 +1,12 @@
 name: board
 
-env: 
+env:
   AWS_REGION: ap-northeast-2
 
 on:
   push:
     branches: [ main ]
-    
+
 jobs:
   deploy:
     name: Deploy
@@ -16,34 +16,34 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v3
-    
+
     - name: Set up JDK 17
       uses: actions/setup-java@v2
-      with: 
+      with:
         java-version: '17'
         distribution: 'zulu'
-    
+
     - name: Build with Gradle
       run: ./gradlew clean build
-    
+
     - name: Get current time
       uses: 1466587594/get-current-time@v2
       id: current-time
-      with: 
+      with:
         format: YYYY-MM-DDTHH-mm-ss
         utcOffset: "+09:00"
-    
+
     - name: Generate deployment package
       run: |
         mkdir -p deploy
         cp build/libs/*.jar deploy/application.jar
         cd deploy && zip -r deploy.zip .
-      
-    - name: Beanstalk Deploy 
+
+    - name: Beanstalk Deploy
       uses: einaregilsson/beanstalk-deploy@v21
-      with: 
+      with:
         aws_access_key: ${{secrets.AWS_ACCCESS_KEY_ID}}
-        aws_secret)key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
+        aws_secret_key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
         region: ${{env.AWS_REGION}}
         application_name: board
         environment_name: Board-env
