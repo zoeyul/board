@@ -1,5 +1,6 @@
 package com.example.board.controller.dto
 
+import com.example.board.service.dto.CommentResponse
 import com.example.board.service.dto.PostDetailResponseDto
 
 data class PostDetailResponse(
@@ -8,6 +9,7 @@ data class PostDetailResponse(
   val content: String,
   val createdBy: String,
   val createdAt: String,
+  val comments: List<CommentResponse> = emptyList(),
 )
 
 fun PostDetailResponseDto.toResponse() = PostDetailResponse(
