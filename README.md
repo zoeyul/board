@@ -1,4 +1,4 @@
-# board
+# 배포 자동화를 적용한 게시판
 - 게시판 기능으로 kotlin, spring, mysql 사용
 
 ### API
