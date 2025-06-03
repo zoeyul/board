@@ -6,6 +6,7 @@ import com.example.board.controller.dto.PostSearchRequest
 import com.example.board.controller.dto.PostSummaryResponse
 import com.example.board.controller.dto.PostUpdateRequest
 import com.example.board.controller.dto.toDto
+import com.example.board.controller.dto.toResponse
 import com.example.board.service.PostService
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
@@ -17,7 +18,6 @@ import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
-import java.time.LocalDateTime
 
 @RestController
 class PostController(
@@ -50,9 +50,8 @@ class PostController(
   @GetMapping("posts/{id}")
   fun getPost(
     @PathVariable id: Long,
-
   ): PostDetailResponse {
-    return PostDetailResponse(1L, "title", "content", "createdBy", LocalDateTime.now().toString())
+    return postService.getPost(id).toResponse()
   }
 
   @GetMapping("posts")
@@ -62,6 +61,6 @@ class PostController(
   ): Page<PostSummaryResponse> {
     println("title: ${postSearchRequest.title}")
     println("createdBy: ${postSearchRequest.createdBy}")
-    return Page.empty()
+    return postService.findPageBy(pageable, postSearchRequest.toDto()).toResponse()
   }
 }
