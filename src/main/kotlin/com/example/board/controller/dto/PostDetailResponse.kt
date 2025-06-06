@@ -2,6 +2,7 @@ package com.example.board.controller.dto
 
 import com.example.board.service.dto.CommentResponse
 import com.example.board.service.dto.PostDetailResponseDto
+import com.example.board.service.dto.toResponse
 
 data class PostDetailResponse(
   val id: Long,
@@ -17,5 +18,6 @@ fun PostDetailResponseDto.toResponse() = PostDetailResponse(
   title = title,
   content = content,
   createdBy = createdBy,
-  createdAt = createdAt
+  createdAt = createdAt,
+  comments = comments.map { it.toResponse() }
 )

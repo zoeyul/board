@@ -1,15 +1,17 @@
 package com.example.board.service.dto
 
-data class CommentResponse(
+import com.example.board.domain.Comment
+
+data class CommentResponseDto(
   val id: Long,
   val content: String,
   val createdBy: String,
   val createdAt: String,
 )
 
-fun CommentResponseDto.toResponse() = CommentResponse(
+fun Comment.toResponseDto() = CommentResponseDto(
   id = id,
   content = content,
   createdBy = createdBy,
-  createdAt = createdAt
+  createdAt = createdAt.toString()
 )
